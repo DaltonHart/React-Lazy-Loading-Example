@@ -1,12 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+//after 16.6
+import { Suspense } from 'react';
+
+
+// before 16.6 suspense
+// import asyncComponent from './hoc/asyncComponent';
+// const AsyncApp = asyncComponent(()=>import("./App"));
+
+// after 16.6
+// names imports not supported
+const LazyApp = React.lazy(()=>import("./App"));
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* before 16.6 <AsyncApp /> */}
+   
+    <Suspense fallback={<div>Loading...</div>}>
+      <LazyApp />
+    </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );
